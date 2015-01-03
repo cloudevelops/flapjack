@@ -17,7 +17,7 @@ module Flapjack
       include ActiveModel::Serializers::JSON
       self.include_root_in_json = false
 
-      TRANSPORTS = ['email', 'sms', 'jabber', 'pagerduty', 'sns', 'sms_twilio']
+      TRANSPORTS = ['email', 'sms', 'jabber', 'pagerduty', 'sns', 'sms_twilio', 'sms_gammu']
 
       define_attributes :transport               => :string,
                         :address                 => :string,
