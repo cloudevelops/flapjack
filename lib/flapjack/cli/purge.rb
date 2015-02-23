@@ -49,6 +49,17 @@ module Flapjack
         end
       end
 
+      def entity
+        if @options[:name].nil?
+          raise "Entity name is required"
+        end
+
+        entity = Flapjack::Data::Entity.find_by_name @options[:name]
+        entity.purge!
+
+        puts "Purged #{@options[:name]}"
+      end
+
       private
 
       def redis
@@ -76,6 +87,15 @@ command :purge do |purge|
     check_history.action do |global_options,options,args|
       purge = Flapjack::CLI::Purge.new(global_options, options)
       purge.check_history
+    end
+  end
+
+  purge.desc 'Purge entity'
+  purge.command :entity do |entity|
+
+    entity.action do |global_options, options, args|
+      purge = Flapjack::CLI::Purge.new(global_options, options)
+      purge.entity
     end
   end
 

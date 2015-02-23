@@ -624,6 +624,20 @@ module Flapjack
         Flapjack.dump_json(json_data)
       end
 
+      def purge!
+        @redis.hdel("all_entity_ids_by_name", @name)
+        @redis.hdel("all_entity_names_by_id", @id)
+        @redis.del("contacts_for:#{@name}")
+        @redis.del("all_checks:#{@name}")
+        @redis.zrem("current_entities", @name)
+
+        check_keys = @redis.keys("check:#{@name}:*") |
+          @redis.keys("current_checks:#{@name}:*")
+        check_keys.each do |ckey|
+          @redis.del(ckey)
+        end
+      end
+
     private
 
       # NB: initializer should not be used directly -- instead one of the finder methods
