@@ -955,6 +955,7 @@ module Flapjack
             deletees << "#{@key}:#{timestamp}:summary"
             deletees << "#{@key}:#{timestamp}:count"
             deletees << "#{@key}:#{timestamp}:check_latency"
+            deletees << "#{@key}:#{timestamp}:details"
           end
           @logger.info "  deleting a bunch of keys 100 at a time..." if @logger
           deletees.each_slice(100) do |batch|
