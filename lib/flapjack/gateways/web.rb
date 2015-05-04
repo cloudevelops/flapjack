@@ -392,6 +392,12 @@ module Flapjack
         redirect back
       end
 
+      get '/resolve/:entity/:check' do
+        entity_check = get_entity_check(params[:entity], params[:check])
+        entity_check.update_state(Flapjack::Data::EntityCheck::STATE_OK)
+        redirect back
+      end
+
       get '/contacts' do
         @contacts = Flapjack::Data::Contact.all(:redis => redis)
 

@@ -32,6 +32,10 @@
   </div><!-- col-md-6 -->
 
   <div class="col-md-6">
+    <% if @check_state.upcase != "OK" %>
+      <a class='btn btn-primary' href="<%= @base_url %>resolve/<%= check_path_escaped %>">Resolve</a>
+    <% end %>
+
    <%
     if !@current_scheduled_maintenance and
        !@current_unscheduled_maintenance and
